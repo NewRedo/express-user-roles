@@ -1,0 +1,17 @@
+{
+  "name": "express-user-roles",
+  "version": "0.0.0",
+  "description": "User role middleware and sub-application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "NewRedo Ltd",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^2.6.0",
+    "express": "^4.16.2",
+    "extend": "^3.0.1",
+    "uuid": "^3.1.0"
+  }
+}

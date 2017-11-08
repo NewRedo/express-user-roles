@@ -1,0 +1,76 @@
+/*
+User role middleware provides an invitation based role management.
+*/
+
+const AuthorizationMiddleware = require("./authorization-middleware");
+
+app.use(new AuthorizationMiddleware({
+    // Specifies the URLs that are limited to authorized users.
+    // Accepts anything that is acceptable to the first argument of a call to
+    // `router.use` in Express. Invitation URLs are automatically whitelisted.
+    protectsPath: "/",
+
+    // Allows developer to mount the user interface anywhere in their website.
+    // Accepts anything that is acceptable to the first argument of a call to
+    // `router.use` in Express. Only administrators are given access to this.
+    userInterfacePath: "/users",
+    
+    // path to prefix before template names. Alternatively, `res.render` can be
+    // replaced in a preceeding middleware.
+    templatePath: "authorization-template",
+    
+    // Allows developer to provide custom storage, implementing `get` and `put`,
+    // implements `AuthorizationMiddleware.Store`.
+    store: new PouchDbStore({
+        location: "http://localhost:5984/acls,
+        documentId: "system-acl"
+    }),
+    
+    // Gets the current user object as a contact-schema.
+    userSource: function (req, res) {
+        return req.user;
+    }
+    
+    // A callback that can be used to receive the resolved user role.
+    roleCallback: function (req, res, role, next) {
+        req["user-role"] = role;
+    },
+    
+    // Allows multiple roles to be specified.
+    roles: ["Administrator"],
+    
+    // The administrator role can remove or change all users.
+    administratorRole: "Administrator"
+}));
+
+/*
+The store has a `get` and a `put` function, there is no delete. Is works on a
+single value, supports asynchronous access. The ACL may be available on data
+already loaded into the request/response by a `param` resolution.
+
+{
+    "acl": [{
+        "user": <contact-schema>,
+        "role": <string|"Administrator">
+    }]
+}
+
+There can only be one owner, the owner can't be deleted, instead the object
+can be deleted.
+
+Routers
+=======
+
+RoleResolutionRouter - resolves the role and denies access if no role is found.
+RoleAdministrationRouter - allows administration of roles and invitations.
+
+Templates
+=========
+
+index - renders an array of current members and their ownership status.
+invite - a form containing contact information and ownership status.
+change - change role
+delete - confirmation template confirming an action.
+invitation-email - an email containing the invitation acceptance URL.
+
+*/
