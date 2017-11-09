@@ -4,7 +4,13 @@ Express User Roles
 Getting Started
 ===============
 
-Run `node example` to view the example user interface.
+```
+npm install --save ssh://newredo.com/home/phill/express-user-roles.git#master
+```
+
+Run `node node_modules/express-user-roles/example` to view the example user
+interface. Note that the invitation system sends emails through the local smtp
+server.
 
 Developers must ensure that `req.user` is set to a valid
 [contact schema](https://tools.ietf.org/html/draft-smarr-vcarddav-portable-contacts-00)
@@ -84,10 +90,27 @@ The following templates are required:
 * `ace-edit` - shows the access control edit form.
 * `ace-delete` - shows the access control entry delete confirmation.
 * `invite` - shows the access control entry invitation form.
+* `invite-sent` - a confirmation page that the invite has been sent.
+* `invite-email` - a special template for emailing, see the example.
+* `invite-accepted` - landing page when an invitation is accepted.
 * `401` - not authorized.
 
 Raw data is provided to the templates for custom rendering but it is not
 documented.
+
+Contributing
+============
+
+```
+git clone ssh://newredo.com/home/phill/express-user-roles.git
+cd express-user-roles
+npm install
+cd vagrant
+vagrant up
+vagrant ssh
+cd src
+node example
+```
 
 Licence
 =======
