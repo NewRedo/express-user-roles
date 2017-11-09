@@ -3,6 +3,7 @@
 const extend = require("extend");
 const express = require("express");
 const expressUserRoleRouter = require("../index");
+const path = require("path");
 
 const app = new express();
 
@@ -13,41 +14,55 @@ var acl = [{
     role: "Administrator"
 }, {
     user: {
-        id: "pleb"
+        id: "user1"
     },
-    role: "Pleb"
+    role: "User"
 }];
+
+app.set("views", path.join(__dirname, "../templates"));
+app.set("view engine", "pug");
+
+app.use(require("cookie-parser")());
 
 app.use(function(req, res, next) {
     // Fake the request user from the query string.
-    req.user = {
-        id: req.query.user
-    };
-    res.render = function(name) {
-        res.json({
-            view: name,
-            locals: res.locals,
-            user: req.user,
-            userRole: req.userRole
-        });
-    };
+    if (req.query.user) {
+        req.user = {
+            id: req.query.user,
+            displayName: req.query.user,
+            emails: [{
+                value: req.query.user + "@localhost"
+            }]
+        };
+        res.cookie("user", req.user);
+    } else {
+        req.user = req.cookies.user;
+    }
     next();
 });
 
 app.use(expressUserRoleRouter({
-    templatePath: "../templates",
     store: {
         get: function(callback) {
-            callback(null, extend(true, [], acl));
+            callback(null, JSON.parse(JSON.stringify(acl)));
         },
         put: function(newAcl, callback) {
-            acl = extend(true, [], newAcl);
+            acl = JSON.parse(JSON.stringify(newAcl));
+            callback();
         }
-    }
+    },
+    render: (req, res, template) => {
+        if (template === "401") {
+            res.render("401");
+        } else {
+            res.render("page-template");
+        }
+    },
+    roles: ["Administrator", "User"]
 }));
 
 app.get("/", function(req, res) {
-    res.render("/");
+    res.render("templates/page-template");
 });
 
 app.listen(3000, function() {

@@ -1,0 +1,91 @@
+html
+    head
+        title= title
+        link(
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+            integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+            crossorigin="anonymous"
+        )
+    body
+        div.container
+            h1= title
+            if locals.user
+                p Logged in in as #{locals.user.displayName}
+            else
+                p Not logged in.
+
+            if links && links.length
+                hr
+                p
+                    for link in links
+                        a.btn.btn-default(href=link.href)= link.text
+                        | &nbsp;
+
+            if paragraph
+                hr
+                p= paragraph
+
+            if table
+                hr
+                table.table.table-bordered
+                    tr
+                        for col in table.columns
+                            th= col
+                    for row in table.rows
+                        tr
+                            for val in row
+                                td
+                                    if val && val.href
+                                        a(href=val.href)= val.text
+                                    else if val && val.text
+                                        = val.text
+                                    else
+                                        = val
+
+            if details
+                hr
+                for detail in details
+                    p
+                        b= detail.label
+                        | &nbsp;
+                        = detail.value
+
+            if form
+                hr
+                form(enctype="multipart/form-data",method="post")
+                    for field in form.fields
+                        div.form-group(
+                            class={
+                                "has-warning": field.error === "required",
+                                "has-error": field.error && field.error !== "required",
+                                "has-success": !field.error
+                            }
+                        )
+                            label.form-label(
+                                for: field.name
+                            )= field.label
+                            if field.type === "select"
+                                select.form-control(
+                                    name= field.name
+                                    required= field.required
+                                )
+                                    for option in field.options
+                                        option(
+                                            value=option.value
+                                            selected= option.value === field.value
+                                        )= option.text
+                            else
+                                input.form-control(
+                                    name= field.name
+                                    type= field.type
+                                    required= field.required
+                                    value= field.value
+                                )
+                    div.form-group
+                        button.btn.btn-primary(type="submit") Save
+                        a.btn(href=form.cancelHref) Cancel
+
+            hr
+            h2 Dump of <code>res.locals</code>
+            pre= JSON.stringify(_locals, null, 4)

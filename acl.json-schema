@@ -1,0 +1,42 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "title": "ACL",
+    "description": "Access Control List",
+    "type": "array",
+    "items": { "$ref": "#/definitions/ace" },
+    "definitions": {
+        "ace": {
+            "type": "object",
+            "properties": {
+                "user": { "$ref": "#/definitions/user" },
+                "role": {
+                    "description": "The user's role",
+                    "type": "string"
+                }
+            },
+            "required": ["user", "role"]
+        },
+        "user": {
+            "description": "A subset of contact-schema for a user.",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "displayName": {
+                    "description": "The display name of user.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "The full name of the user.",
+                    "type": "object",
+                    "properties": {
+                        "givenName": { "type": "string" },
+                        "familyName": { "type": "string" }
+                    }
+                }
+            },
+            "required": [ "id" ]
+        }
+    }
+}
