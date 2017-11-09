@@ -2,5 +2,12 @@ extends ./page-template
 
 block main
     h1 Not Authorized
-    p Add <code>?user=</code> to set the user identifier for each request.
-    p Specify <code>?user=root</code> for adminsitration, and <code>?user=user1</code> for ordinary access. Other user identifiers will be denied.
+    p You can log in below as anyone you like.
+    p Log in as <code>root</code>&nbsp;
+        a(href="/?user=root") /?user=root
+    p Log in as <code>user1</code>&nbsp;
+        a(href="/?user=user1") /?user=user1
+    form(method="get")
+        .form-group
+            label.form-label Choose any user name:
+            input.form-control(name="user")

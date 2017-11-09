@@ -1,12 +1,30 @@
 Express User Roles
 ==================
 
+Getting Started
+===============
+
+Run `node example` to view the example user interface.
+
+Developers must ensure that `req.user` is set to a valid
+[contact schema](https://tools.ietf.org/html/draft-smarr-vcarddav-portable-contacts-00)
+which must have an `id` and a `displayName` or `name` set. This must be done
+before the code to `use` this module/middleware.
+
+The given role is provided on `req.role` by the middleware provided the user
+has been assigned a role, otherwise this may be `null` or `undefined`. This is
+only accessible for code that is executed after this module/middlware.
+
 Access Control List Schema
 ==========================
 
 Storage providers are requires to provide an array containing the access
 control list according to the schema contained in `acl.json-schema`. This is
 validated on both read and also on write to avoid corruption.
+
+See the example for how to write a storage provider. A PouchDb provider has
+been included, available as `userRoleMiddleware.PouchDbStore`. See
+`./lib/pouchdb-store.js` for documentation.
 
 Templates
 =========

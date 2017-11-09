@@ -1,0 +1,10 @@
+extends ./page-template
+
+block main
+    h1 Authorized
+    p You can clear your log-in by clicking the link below:
+    pre
+        a(href="/?user=") /?user=
+    p If you are an administrator you can access the user interface:
+    pre
+        a(href="/users") /users
