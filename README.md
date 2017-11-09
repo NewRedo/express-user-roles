@@ -70,3 +70,8 @@ The following templates are required:
 
 Raw data is provided to the templates for custom rendering but it is not
 documented.
+
+Licence
+=======
+
+See LICENCE.txt
