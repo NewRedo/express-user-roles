@@ -1,3 +1,5 @@
+-
+    if (!view) view = {};
 html
     head
         title= title
@@ -15,26 +17,26 @@ html
             else
                 p Not logged in.
 
-            if links && links.length
+            if view.links && view.links.length
                 hr
                 p
-                    for link in links
+                    for link in view.links
                         a.btn.btn-default(href=link.href)= link.text
                         | &nbsp;
 
-            if paragraph
+            if view.paragraph
                 hr
-                p= paragraph
+                p= view.paragraph
 
             block main
 
-            if table
+            if view.table
                 hr
                 table.table.table-bordered
                     tr
-                        for col in table.columns
+                        for col in view.table.columns
                             th= col
-                    for row in table.rows
+                    for row in view.table.rows
                         tr
                             for val in row
                                 td
@@ -45,18 +47,18 @@ html
                                     else
                                         = val
 
-            if details
+            if view.details
                 hr
-                for detail in details
+                for detail in view.details
                     p
                         b= detail.label
                         | &nbsp;
                         = detail.value
 
-            if form
+            if view.form
                 hr
                 form(enctype="multipart/form-data",method="post")
-                    for field in form.fields
+                    for field in view.form.fields
                         div.form-group(
                             class={
                                 "has-warning": field.error === "required",
@@ -86,7 +88,7 @@ html
                                 )
                     div.form-group
                         button.btn.btn-primary(type="submit") Save
-                        a.btn(href=form.cancelHref) Cancel
+                        a.btn(href=view.form.cancelHref) Cancel
 
             hr
             h2 Dump of <code>res.locals</code>
