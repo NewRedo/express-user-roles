@@ -27,7 +27,7 @@ app.set("view engine", "pug");
 
 // Although not required by the express-user-roles module, we need this for
 // our demo.
-app.use(require("cookie-parser")());
+app.use(require("cookie-parser")("my-secret"));
 
 // Allows users to be faked initially on the query string then sets a cookie
 // for subsequent requests.
@@ -67,11 +67,15 @@ app.use(expressUserRoleRouter({
 
     // We need this to use the example templates, we're using the same template
     // for everything except a 401.
-    render: (req, res, template) => {
-        if (template === "401") {
-            res.render("401");
-        } else {
-            res.render("page-template");
+    render: (req, res, template, callback) => {
+        switch (template) {
+            case "401":
+            case "invite-email":
+                res.render(template, callback);
+                break;
+            default:
+                res.render("page-template", callback);
+                break;
         }
     },
 

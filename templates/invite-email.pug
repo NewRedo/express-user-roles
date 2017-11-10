@@ -1,0 +1,31 @@
+-
+    // The `email` object is compatible with [Node Mailer]
+    // (https://nodemailer.com). `to`, `cc` and `replyTo` are set automatically
+    // but you can append more or override them here if required.
+
+    // Set the from address.
+    email.from = "root@localhost";
+    
+    // Set this if you want a copy of the invitations.
+    // email.bcc = { name: "root", address: "root@localhost" };
+    
+    // `invitor` is a `contact-schema` of the person doing the inviting.
+    // `invitee` is a `contact-schema` of the person being invited.
+    // `invitationHref` is the link that is used to accept the invitation.
+        
+    email.subject = "Invitation to Participate";
+
+html
+    body
+        p Hi #{invitee.displayName},
+        p You have been invited by #{invitor.displayName} to use the system.
+        p The following link completes the process, you may need to sign-in or
+            register for a user account.
+        p
+            a(href=invitationHref) Accept this invitation...
+        p
+            small
+                | This email was provided because #{invitor.displayName} asked
+                | us to send you this invitation. Please report this if you
+                | think the system is being abused.
+
