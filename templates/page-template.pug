@@ -14,8 +14,10 @@ html
             h1= title
             if locals.user
                 p Logged in in as #{locals.user.displayName}
+                    a.btn.btn-link(href="/") Home
             else
                 p Not logged in.
+                    a.btn.btn-link(href="/") Home
 
             if view.links && view.links.length
                 hr
