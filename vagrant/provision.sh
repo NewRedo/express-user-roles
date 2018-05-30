@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 
+# This section exists to work around a bug in Vagrant as of version 2.1.1 which
+# does not configure IPv4 properly for the host-only adapter in Ubuntu 18.04.
+rm /etc/netplan/50-cloud-init.yaml
+cp /vagrant/netplan-config.yaml /etc/netplan/99-vagrant.yaml
+netplan apply
+
 # Prod dependiencies
 apt-get update
-apt-get install -y nodejs nodejs-legacy npm git
+apt-get install -y npm git
 
 # Dev dependencies - basic
 apt-get update
