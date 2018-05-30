@@ -2,7 +2,7 @@
 
 const extend = require("extend");
 const express = require("express");
-const expressUserRoleRouter = require("../index");
+const ExpressUserRoleRouter = require("../index");
 const path = require("path");
 
 const app = new express();
@@ -52,7 +52,7 @@ app.use(function(req, res, next) {
 });
 
 // Configure our express user role router.
-app.use(expressUserRoleRouter({
+var userRoles = new ExpressUserRoleRouter({
     // We're just storing in a variable, but use JSON to create a clone to
     // avoid it being accidentally manipulated.
     store: {
@@ -83,7 +83,9 @@ app.use(expressUserRoleRouter({
     // access the user interface by default, "User" can only access our
     // home page.
     roles: ["Administrator", "User"]
-}));
+});
+app.use("/users", userRoles.createUserInterface());
+app.use(userRoles.createMiddleware());
 
 // Our home page is nothing special.
 app.get("/", function(req, res) {
