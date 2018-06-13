@@ -5,7 +5,8 @@
   "repository": "ssh://newredo.com/home/phill/express-user-roles.git",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node example"
   },
   "author": "NewRedo Ltd",
   "license": "MIT",
