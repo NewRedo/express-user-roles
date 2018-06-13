@@ -6,19 +6,19 @@ rm /etc/netplan/50-cloud-init.yaml
 cp /vagrant/netplan-config.yaml /etc/netplan/99-vagrant.yaml
 netplan apply
 
-# Prod dependiencies
 apt-get update
+apt-get dist-upgrade
+
+# Application dependiencies
 apt-get install -y npm git
 
-# Dev dependencies - basic
-apt-get update
-apt-get install -y avahi-daemon avahi-utils
+# Development/vagrant dependencies
+apt-get install -y avahi-daemon avahi-utils net-tools
 
 # Set up an email testing environment that catches all mail sent whatever the
 # address and deliver it to the same place so most testing senarios may be
 # run safely - see: http://www.newredo.com/building-a-test-email-server/
 # install mail transfer agent (Postfix) and pop3 server (Dovecot)
-apt-get update
 debconf-set-selections <<< "postfix postfix/mailname string localhost"
 debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Local only'"
 apt-get install -y postfix dovecot-pop3d
