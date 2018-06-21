@@ -17,7 +17,7 @@ Developers must ensure that `req.user` is set to a valid
 which must have an `id` and a `displayName` or `name` set. This must be done
 before the code to `use` this module/middleware.
 
-The given role is provided on `req.role` by the middleware provided the user
+The given role is provided on `req.userRole` by the middleware provided the user
 has been assigned a role, otherwise this may be `null` or `undefined`. This is
 only accessible for code that is executed after this module/middlware.
 

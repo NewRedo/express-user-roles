@@ -1,10 +1,24 @@
 extends ./page-template
 
 block main
-    h1 Authorized
-    p You can clear your log-in by clicking the link below:
-    pre
-        a(href="/?user=") /?user=
-    p If you are an administrator you can access the user interface:
-    pre
-        a(href="/users") /users
+    if user
+        h1 Logged in
+        p You can clear your log-in by clicking the link below:
+        pre
+            a(href="/?user=") /?user=
+        p If you are an administrator you can access the user interface:
+        pre
+            a(href="/users") /users
+    else
+        h1 Not logged in
+        p You can log in below as anyone you like.
+        p Log in as <code>root</code>&nbsp;
+            a(href="/?user=root") /?user=root
+        p Log in as <code>user1</code>&nbsp;
+            a(href="/?user=user1") /?user=user1
+        form(method="get")
+            for val,i in query
+                input(name=i, value=val)
+            .form-group
+                label.form-label Choose any user name:
+                input.form-control(name="user")

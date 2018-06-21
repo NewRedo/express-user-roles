@@ -2,12 +2,5 @@ extends ./page-template
 
 block main
     h1 Not Authorized
-    p You can log in below as anyone you like.
-    p Log in as <code>root</code>&nbsp;
-        a(href="/?user=root") /?user=root
-    p Log in as <code>user1</code>&nbsp;
-        a(href="/?user=user1") /?user=user1
-    form(method="get")
-        .form-group
-            label.form-label Choose any user name:
-            input.form-control(name="user")
+    p
+        a(href="/") Return to home page.

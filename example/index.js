@@ -42,12 +42,19 @@ app.use(function(req, res, next) {
             }]
         };
         res.cookie("user", req.user);
+        res.redirect(req.path);
+        return;
     } else if (req.query.user === "") {
         delete req.user;
-        res.cookie("user", null);
+        res.clearCookie("user", null);
+        res.redirect(req.path);
+        return;
     } else {
         req.user = req.cookies.user;
     }
+
+    res.locals.query = req.query;
+
     next();
 });
 
@@ -84,8 +91,9 @@ var userRoles = new ExpressUserRoleRouter({
     // home page.
     roles: ["Administrator", "User"]
 });
-app.use("/users", userRoles.createUserInterface());
+
 app.use(userRoles.createMiddleware());
+app.use("/users", userRoles.createUserInterface());
 
 // Our home page is nothing special.
 app.get("/", function(req, res) {
