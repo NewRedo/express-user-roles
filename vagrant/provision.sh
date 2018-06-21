@@ -5,6 +5,7 @@
 rm /etc/netplan/50-cloud-init.yaml
 cp /vagrant/netplan-config.yaml /etc/netplan/99-vagrant.yaml
 netplan apply
+sleep 5
 
 apt-get update
 apt-get dist-upgrade
