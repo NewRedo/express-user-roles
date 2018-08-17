@@ -11,12 +11,14 @@ const app = new express();
 // reset to the followiing value when the application is restarted.
 var acl = [{
     user: {
-        id: "root"
+        id: "root",
+        displayName: "Root"
     },
     role: "Administrator"
 }, {
     user: {
-        id: "user1"
+        id: "user1",
+        displayName: "User One"
     },
     role: "User"
 }];

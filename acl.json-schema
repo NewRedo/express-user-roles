@@ -36,7 +36,7 @@
                     }
                 }
             },
-            "required": [ "id" ]
+            "required": [ "id", "displayName" ]
         }
     }
 }
