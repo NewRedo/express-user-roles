@@ -1,8 +1,8 @@
 {
   "name": "express-user-roles",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "User role middleware and sub-application.",
-  "repository": "ssh://newredo.com/home/phill/express-user-roles.git",
+  "repository": "https://github.com/NewRedo/express-user-roles",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,7 +12,6 @@
   "license": "MIT",
   "dependencies": {
     "ajv": "^5.3.0",
-    "async": "^2.6.0",
     "express": "^4.16.2",
     "extend": "^3.0.1",
     "jsonwebtoken": "^8.1.0",
