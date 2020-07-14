@@ -1,9 +1,9 @@
 "use strict";
 
-const extend = require("extend");
 const express = require("express");
 const ExpressUserRoleRouter = require("../index");
 const path = require("path");
+const nodemailer = require("nodemailer");
 
 const app = new express();
 
@@ -91,7 +91,15 @@ var userRoles = new ExpressUserRoleRouter({
     // Here we list out user roles, "Adminsitrator" is has permissions to
     // access the user interface by default, "User" can only access our
     // home page.
-    roles: ["Administrator", "User"]
+    roles: ["Administrator", "User"],
+
+    mailTransport: nodemailer.createTransport({
+        host: process.env.SMTP_HOST || "localhost",
+        port: process.env.SMTP_PORT || 25,
+        tls: {
+            rejectUnauthorized: false
+        }
+    })
 });
 
 app.use(userRoles.createMiddleware());
