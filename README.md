@@ -1,16 +1,15 @@
 Express User Roles
 ==================
 
-Getting Started
-===============
+Using Docker
+============
 
 ```
-npm install --save ssh://newredo.com/home/phill/express-user-roles.git#master
+./docker/docker-node npm install
+./docker/docker-run
 ```
 
-Run `node node_modules/express-user-roles/example` to view the example user
-interface. Note that the invitation system sends emails through the local smtp
-server.
+View the example at `http://localhost:3000`.
 
 Developers must ensure that `req.user` is set to a valid
 [contact schema](https://tools.ietf.org/html/draft-smarr-vcarddav-portable-contacts-00)
