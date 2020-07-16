@@ -1,6 +1,6 @@
 {
   "name": "express-user-roles",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "User role middleware and sub-application.",
   "repository": "https://github.com/NewRedo/express-user-roles",
   "main": "index.js",
