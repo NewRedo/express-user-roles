@@ -8,8 +8,9 @@ SCRIPT_DIR=$(dirname "$0")
 SCRIPT_DIR_PARENT=$(cd "$SCRIPT_DIR" && cd ../ && pwd)
 
 docker run -it \
+  --rm \
   -u $(id -u):$(id -g) \
   -v "${SCRIPT_DIR_PARENT}:/tmp/src" \
   -w /tmp/src \
-  node:12 \
+  node:20 \
   "$@"
