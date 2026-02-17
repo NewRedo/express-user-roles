@@ -11,7 +11,7 @@
   "author": "NewRedo Ltd",
   "license": "MIT",
   "dependencies": {
-    "ajv": "^6.12.3",
+    "ajv": "^8.18.0",
     "express": "^4.22.0",
     "extend": "^3.0.2",
     "jsonwebtoken": "^9.0.2",
